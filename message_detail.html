@@ -1,0 +1,26 @@
+{% extends "shabook/base.html" %}
+{% block content %}
+    <div class="textsec">
+        <ul class="list-group">
+                <li class="list-group-item  book-list-detail active1">موضوع:  {{ object.message_title }}</li>
+                <li class="list-group-item  book-list-detail"><strong> کتاب: </strong> {{ object.book_post.title }}</li>
+                <li class="list-group-item  book-list-detail">از طرف:  {{ object.sender.username}}</li>
+                <li class="list-group-item  book-list-detail"> تاریخ ارسال:  {{ object.message_date_posted }}</li>
+                <li class="list-group-item  book-list-detail"> متن پیام: <p> {{object.message_content}} </p></li>
+        </ul>
+        <br>
+        {% if object.receiver == user %}
+                  <div>
+                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'message-reply' username=object.sender.username  post=object.book_post.id %}">Reply</a>
+                  </div>
+        {% endif %}
+        {% if object.sender == user %}
+            <div>
+              <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'message-delete' object.id %}">حذف </a>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends "shabook/base.html" %}
+{% load static%}
+{% block content %}
+    <div class = "textsec">
+        <div class = "rali">
+          <h1><img src="{% static 'shabook/home/img/books.png' %}"  width="30" height="30" class="d-inline-block" alt=""> {{ object.title }} </h1>
+          <a class="mr-2 " href="{% url 'user-posts' object.author.username %}"><img class="rounded-circle article-img" height = "50" width = "50"  src="{{ object.author.profile.image.url }}">
+              {{ object.author }}
+          </a><br>
+          <small class="date-adj">{{ object.date_posted|date:"F d, Y" }}</small>
+        </div>
+        
+        <div class = "row">
+          <div class = "col-lg-8">
+            <ul class="list-group">
+                <li class="list-group-item  book-list-detail"><strong> نویسنده: </strong> {{ object.book_author }}</li>
+                <li class="list-group-item  book-list-detail">شماره ویراست: {{ object.edition }}</li>
+                <li class="list-group-item  book-list-detail">انتشارات: {{ object.publications }}</li>
+                <li class="list-group-item  book-list-detail"> توضیحات: <p> {{object.content}} </p></li>
+              </ul>
+            </div>
+              <div class="col-lg-4">
+                <img class="img-fluid" src="{{ object.bookPic.url }}"  height = "100%" width = "100%"  alt="{{ object.title }}" >
+            </div>
+        </div>
+
+  <br>
+  <article class="media ">
+    
+    <div class="media-body">
+      <div class="article-metadata">
+          
+          {% if user.is_authenticated and object.author != user %}
+            <div class = "rali">
+            <a class="btn btn-success btn-md mt-1 mb-1" href="{% url 'message-create' object.author.id %}">درخواست کتاب</a>
+            </div>
+          {% endif %}
+        {% if object.author == user %}
+          <div class= "rali">
+            <a class="btn btn-default btn-md mt-1 mb-1" href="{% url 'post-update' object.id %}">به روز رسانی</a>
+            <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'post-delete' object.id %}">حذف</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+  </div>
+
+{% endblock content %}

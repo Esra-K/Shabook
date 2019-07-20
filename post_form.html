@@ -1,0 +1,20 @@
+{% extends "shabook/base.html" %}
+{% load static%}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class = "container textsec">
+    
+        <form method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <h2 class="rali border-bottom mb-4">اطلاعات کتاب</h2>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+ </div>
+ </div>
+{% endblock content %}

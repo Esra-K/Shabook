@@ -1,0 +1,119 @@
+{% extends "shabook/base.html" %}
+
+{% block content %}
+
+<div class='row title-row my-5'>
+    <div class='col-12 py-0'>
+        <h3 class='my-0 py-0' ><font color = "white">{{ count }} results for <b>{{ query }}</b></font></h3>
+    </div>
+</div>
+        
+        
+{% for object in object_list %}
+           <article class="media content-section">
+
+          <div class="media-body">
+              <div class="article-metadata">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <img class="img-fluid " src="{{ object.bookPic.url }}" height="200" width="150">
+                      </div>
+
+                      <div class="col-md-9 mt-sm-20">
+                          <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+                          <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                          <h2><a class="article-title" href="{% url 'post-detail' object.id %}">{{ object.title }}</a></h2>
+                          <h4>{{ object.book_author }}</h4>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+        </article>
+
+    
+{% empty %}
+<!--<div class='row'>
+    <div class='col-12 col-md-6 mx-auto my-5 py-5'>
+    <form method='GET' class='' action='.'>
+    
+        <div class="input-group form-group-no-border mx-auto" style="margin-bottom: 0px; font-size: 32px;">
+            <span class="input-group-addon cfe-nav" style='color:#000'>
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+            <input type="text" name="q" data-toggle="popover" data-placement="bottom" data-content="Press enter to search" class="form-control cfe-nav mt-0 py-3" placeholder="Search..." value="" style="" data-original-title="" title="" autofocus="autofocus">
+        </div>
+
+    </form>
+
+    </div>
+</div>
+-->
+{% endfor %}
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+{% endblock content %}
+
+<!--
+    {% for post in posts %}
+        <article class="media content-section">
+
+          <div class="media-body">
+              <div class="article-metadata">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <img class="img-fluid " src="{{ post.bookPic.url }}" height="200" width="150">
+                      </div>
+
+                      <div class="col-md-9 mt-sm-20">
+                          <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+        </article>
+    {% endfor %}
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+-->

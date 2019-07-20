@@ -1,0 +1,67 @@
+{% load static %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap -->
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+        <link rel="stylesheet" type=" text/css" href="{% static 'shabook//landing/bootstrap.min.css' %}">
+        <link rel="stylesheet" type=" text/css" href="{% static 'shabook/landing/style.css' %}">
+        <title>shabook | شبوک</title>
+    </head>
+
+  <body style="background-image: url('{% static 'shabook/landing/img/about.jpg' %}')";>
+    <nav class="navbar">
+        <a class="navbar-brand" href="#">
+        <img src= "{% static 'shabook/landing/img/books.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        شبوک
+        </a>
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="جستجو در کتاب ها..." aria-label="Search">
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">جستجو</button>
+        </form>
+    </nav>
+
+
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="container textsec">
+              <!--about section-->
+              <h1 class="about-heading"><img src= "{% static 'shabook/landing/img/books.png' %}" width="30" height="30" class="d-inline-block" alt="">
+                 شبوک چیه؟؟ </h1>
+              <p  class="about-desc">یک شبکه ی اجتماعی برای تبادل کتاب میان دانشجویان شریف! </p>
+              <h1 class="about-heading"><img src= "{% static 'shabook/landing/img/books.png' %}" width="30" height="30" class="d-inline-block" alt="">
+                چرا شبوک؟</h1>
+              <p class="about-desc">
+                ایجاد این سامانه باعث تسهیل مطالعه و دستیابی به کتاب ها توسط دانشجویان میشود. پیش از این برای انتقال و مبادله ی کتاب ها(معمولا درسی و بعضا غیردرسی) در میان دانشجویان شریف از ابزار هایی مانند گروه های تلگرامی استفاده میشد اما با توجه به اینکه نظارت کافی در یک گروه تلگرامی وجود ندارد و حجم بالای پیام مانع از کارآمدی چنین بستری میشود و علاوه بر آن پیام های بی ربط و تبلیغات داخل این گروه ها زیاد است؛ به ایجاد یک سامانه که به صورت منظم و دسته بندی شده به نیاز کاربر پاسخ دهد، نیاز داریم. از طرفی در چنین بستری دانشجو میتواند از نظرات دیگر دانشجویان (و نه عموم مردم) در خصوص کتابی اطلاع پیدا کند و برای مطالعه ی آن اقدام کند. در این سامانه توانایی ایجاد گروه هایی برای خوانش گروهی وجود دارد؛ اتفاقی که پیش از این به صورت فیزیکی در دانشگاه شریف در حال انجام بود.
+              </p>
+        </div>
+      </div>
+        <div class="col-lg-6">
+          <div class="content-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form|crispy}}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">ورود به سایت</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        اکانت ندارید؟<a class="ml-2" href="{% url 'signup' %}">ثبت نام</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  </body>
+</html>
